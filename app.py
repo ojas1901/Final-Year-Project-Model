@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
@@ -49,4 +50,5 @@ def predict():
     
 
 if __name__ == "__main__":
+    port = int(os.getenv('PORT'))
     app.run(debug=True)
