@@ -32,21 +32,28 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
-    inp=request.get_data()
-    inp=inp.decode()
+    inpu = request.get_json()
+    inp=inpu['question']
+   # print(inp)
+    #inp=request.get_data()
+    #inp=inp.decode()
+    #print(inp)
     #int_features = [int(x) for x in request.form.values()]
     #final_features = [np.array(int_features)]
     #prediction = model.predict(data)
     inp = clean_text(inp)
+    #print(inp)
     inp_series = pd.Series(inp)
     inp_vector = loaded_vectorizer.transform(inp_series)
     prediction = model.predict(inp_vector.toarray())
+    final_prediction=""
     for predictions in prediction:
-        print(predictions)
-    #output = round(prediction[0], 2)
+        final_prediction=predictions
 
-    
-    return render_template('index.html', prediction_text=prediction)
+   # print(type(final_prediction))
+    #print(final_prediction)
+    return final_prediction
+    #return render_template('index.html', prediction_text=prediction)
     
 
 if __name__ == "__main__":
