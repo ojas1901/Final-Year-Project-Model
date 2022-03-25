@@ -160,14 +160,18 @@ def predict():
         unique_words_input = pickle.load(f)
     sparse_matrixi = CSR_input(unique_words_input, tf_idf_dicti)
     #print("sparse_matrixi")
-    #print(sparse_matrixi)
+    print(sparse_matrixi)
     sparse_inpi= sparse_matrixi
     predictedi = loaded_model.predict(sparse_inpi.toarray())
     print(predictedi)
-   
+    lis=str(predictedi.flat[0].tolist())
+    
+  
+    
+    return lis
     # print(type(final_prediction))
         #print(final_prediction)
-    return predictedi
+    
     #return render_template('index.html', prediction_text=prediction)
     
 
