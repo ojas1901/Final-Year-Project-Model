@@ -125,7 +125,7 @@ def CSR_input(unique_words,tf_idf_dict):
 
 app = Flask(__name__)
 loaded_model = pickle.load(open('model.pkl', 'rb'))
-#unique_words = pickle.load(open('vectorizer.pkl', 'rb'))
+unique_words_input = pickle.load(open('unique_words.pkl', 'rb'))
 
 @app.route('/')
 def home():
@@ -156,8 +156,8 @@ def predict():
         tfi.append(outputi)
     idf_listi=idf(tfi)
     tf_idf_dicti=tf_idf(tfi,idf_listi)
-    with open('unique_words.pkl', 'rb') as f:
-        unique_words_input = pickle.load(f)
+    #with open('unique_words.pkl', 'rb') as f:
+     #   unique_words_input = pickle.load(f)
     sparse_matrixi = CSR_input(unique_words_input, tf_idf_dicti)
     #print("sparse_matrixi")
     print(sparse_matrixi)
@@ -165,9 +165,6 @@ def predict():
     predictedi = loaded_model.predict(sparse_inpi.toarray())
     print(predictedi)
     lis=str(predictedi.flat[0].tolist())
-    
-  
-    
     return lis
     # print(type(final_prediction))
         #print(final_prediction)
@@ -176,5 +173,4 @@ def predict():
     
 
 if __name__ == "__main__":
-    #port = int(os.getenv('PORT'))
     app.run(debug=True)
